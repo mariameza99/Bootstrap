@@ -1,9 +1,90 @@
+
 <!DOCTYPE html>
 <html>
 <head>
 	<title>Bootstrap</title>
 </head>
+<meta charset="utf-8">
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+
+  <style>
+    
+        @import url('https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css');
+    section {
+        padding: 60px 0;
+    }
+
+    section .section-title {
+        text-align: center;
+        color: #007b5e;
+        margin-bottom: 50px;
+        text-transform: uppercase;
+    }
+    #footer {
+        background: #0693c6 !important;
+    }
+    #footer h5{
+      padding-left: 10px;
+        border-left: 3px solid #eeeeee;
+        padding-bottom: 6px;
+        margin-bottom: 20px;
+        color:#ffffff;
+    }
+    #footer a {
+        color: #ffffff;
+        text-decoration: none !important;
+        background-color: transparent;
+        -webkit-text-decoration-skip: objects;
+    }
+    #footer ul.social li{
+      padding: 3px 0;
+    }
+    #footer ul.social li a i {
+        margin-right: 5px;
+      font-size:25px;
+      -webkit-transition: .5s all ease;
+      -moz-transition: .5s all ease;
+      transition: .5s all ease;
+    }
+    #footer ul.social li:hover a i {
+      font-size:30px;
+      margin-top:-10px;
+    }
+    #footer ul.social li a,
+    #footer ul.quick-links li a{
+      color:#ffffff;
+    }
+    #footer ul.social li a:hover{
+      color:#eeeeee;
+    }
+    #footer ul.quick-links li{
+      padding: 3px 0;
+      -webkit-transition: .5s all ease;
+      -moz-transition: .5s all ease;
+      transition: .5s all ease;
+    }
+    #footer ul.quick-links li:hover{
+      padding: 3px 0;
+      margin-left:5px;
+      font-weight:700;
+    }
+    #footer ul.quick-links li a i{
+      margin-right: 5px;
+    }
+    #footer ul.quick-links li:hover a i {
+        font-weight: 700;
+    }
+
+    @media (max-width:767px){
+      #footer h5 {
+        padding-left: 0;
+        border-left: transparent;
+        padding-bottom: 0px;
+        margin-bottom: 10px;
+    }
+    }
+
+  </style>
 
 <body>
 
@@ -120,7 +201,7 @@
       <th scope="col">#</th>
       <th scope="col">First</th>
       <th scope="col">Last</th>
-      <th scope="col">Handle</th>
+      <th scope="col">Adopcion</th>
     </tr>
   </thead>
   <tbody>
@@ -128,19 +209,25 @@
       <th scope="row">1</th>
       <td>Mark</td>
       <td>Otto</td>
-      <td>@mdo</td>
+      <td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+            Adoptar
+          </button></td>
     </tr>
     <tr>
       <th scope="row">2</th>
       <td>Jacob</td>
       <td>Thornton</td>
-      <td>@fat</td>
+      <td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+            Adoptar
+          </button></td>
     </tr>
     <tr>
       <th scope="row">3</th>
       <td>Larry</td>
       <td>the Bird</td>
-      <td>@twitter</td>
+      <td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+            Adoptar
+          </button></td>
     </tr>
   </tbody>
 </table>
@@ -195,43 +282,121 @@
   </div>
   </div>
 
-   <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <section id="footer">
+    <div class="container">
+      <div class="row text-center text-xs-center text-sm-left text-md-left">
+        <div class="col-xs-12 col-sm-4 col-md-4">
+          <h5>Adopción</h5>
+          <ul class="list-unstyled quick-links">
+            <li><a href="#"><i class="fa fa-angle-double-right"></i>Inicio</a></li>
+            <li><a href="#"><i class="fa fa-angle-double-right"></i>Perritos</a></li>
+            <li><a href="#"><i class="fa fa-angle-double-right"></i>Gatitos</a></li>
+            <li><a href="#"><i class="fa fa-angle-double-right"></i>Citas</a></li>
+            <li><a href="#"><i class="fa fa-angle-double-right"></i>Adopciones</a></li>
+          </ul>
+        </div>
+        <div class="col-xs-12 col-sm-4 col-md-4">
+          <h5>Contacto</h5>
+          <ul class="list-unstyled quick-links">
+            <li><a href="#"></i>La Paz, B.C.S.</a></li>
+            <li><a href="#"></i>C.P. 25000</a></li>
+            <li><a href="#"></i>Mx. </a></li>
+            <li><a href="#"></i>Tel: 123 4567</a></li>
+            <li><a href="#"></i>Email: contacto@adopcion.com</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-12 mt-2 mt-sm-5">
+          <ul class="list-unstyled list-inline social text-center">
+            <li class="list-inline-item"><a href="#"><i class="fa fa-facebook"></i></a>
+            </li>
+            <li class="list-inline-item"><a href="#"><i class="fa fa-twitter"></i></a>
+            </li>
+            <li class="list-inline-item"><a href="#"><i class="fa fa-instagram"></i></a>
+            </li>
+          </ul>
+        </div>
+        <hr>
+      </div>
+      <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-12 mt-2 mt-sm-2 text-center text-white">
+          <p class="h6">© Todos los derechos reservados.<a class="text-green ml-2" href="#"
+              target="_blank">Adopción</a></p>
+        </div>
+        <hr>
+      </div>
+    </div>
+  </section>
+
+   <!-- Modal -->
+  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Agregar usuario</h5>
+          <h5 class="modal-title" id="exampleModalLabel">Reservar</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
-        <form action="">
+        <form >
           <div class="container">
             <div class="form-group">
-              <label for="exampleInputEmail1">Nombre</label>
-              <input type="email" class="form-control" id="email" aria-describedby="emailHelp">
+              <label for="exampleInputEmail1">Nombre completo</label>
+              <input type="email" class="form-control" id="nombre" aria-describedby="emailHelp">
+              <small id="emailHelp" class="form-text text-muted">Tu información esta segura con nosostros.</small>
             </div>
             <div class="form-group">
-              <label for="exampleInputEmail1">Apellidos</label>
-              <input type="email" class="form-control" id="email" aria-describedby="emailHelp">
+              <label for="exampleFormControlSelect1">Actividad</label>
+              <select class="form-control" id="actividad">
+                <option>Elige una...</option>
+                <option>Nado con Tiburón Ballena</option>
+                <option>Paddle Board</option>
+                <option>Mountain Bike La Ventana MTB Park</option>
+                <option>Ecoturismo en Loreto</option>
+              </select>
+            </div>
+            <div class="form-row align-items-center">
+              <div class="col-auto my-1">
+                <h5>Personas</h5>
+                <label class="mr-sm-2 sr-only" for="cantidad">Preference</label>
+                <select class="custom-select mr-sm-2" id="cantidad">
+                  <option selected>Elige...</option>
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                  <option value="5">5</option>
+                  <option value="6">6</option>
+                  <option value="7">7</option>
+                  <option value="8">8</option>
+                  <option value="9">9</option>
+                  <option value="10">10</option>
+                  <option value="11">11</option>
+                  <option value="12">12</option>
+                </select>
+              </div>
+              <div class="col-auto my-1">
+                <div class="custom-control custom-checkbox mr-sm-2">
+                  <input type="checkbox" class="custom-control-input" id="discapacidad">
+                  <label class="custom-control-label" for="discapacidad">Persona con discapacidad</label>
+                </div>
+              </div>
             </div>
             <div class="form-group">
               <label for="exampleInputEmail1">Email</label>
-              <input type="email" class="form-control" id="email" aria-describedby="emailHelp">
+              <input type="password" class="form-control" id="pass">
             </div>
             <div class="form-group">
-              <label for="exampleInputPassword1">Contraseña</label>
-              <input type="password" class="form-control" id="password">
-            </div>
-            <div class="form-group">
-              <label for="exampleInputPassword1">Repetir contraseña</label>
-              <input type="password" class="form-control" id="password2">
+              <label for="exampleInputPassword1">Confirma tu email</label>
+              <input type="password" class="form-control" id="pass2">
             </div>
 
           </div>
         
           <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-            <button type="submit" class="btn btn-primary">Guardar</button>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+            <button type="submit" class="btn btn-primary" onclick="validar(this)">Reservar</button>
           </div>
         </div>
         </form>
@@ -242,13 +407,18 @@
 	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
 	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
   <script>
     function validar(target) {
-      if ($('#password').val() == $('#password2').val()) {
+      if ($('#pass').val() == $('#pass2').val()) {
         return true;
-      } 
-      return false;
+      }  else {
+        swal("Tu econtraseña no coincide", "Vuelve a intentar!", "error");
+        $("#pass").addClass('is-invalid');
+        $("#pass2").addClass('is-invalid');
+        return false;
+      }
     }
   </script>
 
