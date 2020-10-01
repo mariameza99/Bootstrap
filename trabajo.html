@@ -334,7 +334,7 @@
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Reservar</h5>
+          <h5 class="modal-title" id="exampleModalLabel">Registro de adopción</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
@@ -344,21 +344,20 @@
             <div class="form-group">
               <label for="exampleInputEmail1">Nombre completo</label>
               <input type="email" class="form-control" id="nombre" aria-describedby="emailHelp">
-              <small id="emailHelp" class="form-text text-muted">Tu información esta segura con nosostros.</small>
             </div>
             <div class="form-group">
-              <label for="exampleFormControlSelect1">Actividad</label>
+              <label for="exampleFormControlSelect1">Raza</label>
               <select class="form-control" id="actividad">
                 <option>Elige una...</option>
-                <option>Nado con Tiburón Ballena</option>
-                <option>Paddle Board</option>
-                <option>Mountain Bike La Ventana MTB Park</option>
-                <option>Ecoturismo en Loreto</option>
+                <option>Pitbull</option>
+                <option>Pug</option>
+                <option>Pastor Aleman</option>
+                <option>Dalmata</option>
               </select>
             </div>
             <div class="form-row align-items-center">
               <div class="col-auto my-1">
-                <h5>Personas</h5>
+                <h5>Años</h5>
                 <label class="mr-sm-2 sr-only" for="cantidad">Preference</label>
                 <select class="custom-select mr-sm-2" id="cantidad">
                   <option selected>Elige...</option>
@@ -372,24 +371,18 @@
                   <option value="8">8</option>
                   <option value="9">9</option>
                   <option value="10">10</option>
-                  <option value="11">11</option>
-                  <option value="12">12</option>
                 </select>
               </div>
               <div class="col-auto my-1">
-                <div class="custom-control custom-checkbox mr-sm-2">
-                  <input type="checkbox" class="custom-control-input" id="discapacidad">
-                  <label class="custom-control-label" for="discapacidad">Persona con discapacidad</label>
-                </div>
               </div>
             </div>
             <div class="form-group">
               <label for="exampleInputEmail1">Email</label>
-              <input type="password" class="form-control" id="pass">
+              <input type="email" class="form-control" id="pass">
             </div>
             <div class="form-group">
               <label for="exampleInputPassword1">Confirma tu email</label>
-              <input type="password" class="form-control" id="pass2">
+              <input type="email" class="form-control" id="pass2">
             </div>
 
           </div>
@@ -414,7 +407,7 @@
       if ($('#pass').val() == $('#pass2').val()) {
         return true;
       }  else {
-        swal("Tu econtraseña no coincide", "Vuelve a intentar!", "error");
+        swal("Tus datos no coinciden", "Vuelve a intentar!", "error");
         $("#pass").addClass('is-invalid');
         $("#pass2").addClass('is-invalid');
         return false;
