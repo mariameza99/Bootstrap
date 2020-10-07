@@ -1,4 +1,10 @@
+<?php
+  include "userController.php"; 
+  $res = new UserController();
 
+  $adopciones = $res->get();
+  //echo json_encode($reservas);
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -191,50 +197,63 @@
 </div>
 
 <div class="row mt-5">
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" onclick="add(this)">
+            Adoptar
+          </button>
   <div class="col">
     <div class="card">
-  <h5 class="card-header">Tabla de usuarios registrados</h5>
+  <h5 class="card-header">Perritos</h5>
   <div class="card-body">
+  <?php
+    if (isset($_SESSION['status']) && $_SESSION['status']=='Success'): ?>
+      <div class="alert alert-success alert-dismissible fade show" role="alert">
+        <strong>Correcto!</strong> <?= $_SESSION['message']?>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <?php unset($_SESSION['status'])?>
+    <?php endif?>
+    <?php
+    if (isset($_SESSION['status']) && $_SESSION['status']=='error'): ?>
+      <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        <strong>Error!</strong> <?= $_SESSION['message']?>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <?php unset($_SESSION['status'])?>
+    <?php endif?>
     <table class="table table-bordered table-striped">
   <thead>
     <tr>
-      <th scope="col">#</th>
-      <th scope="col">First</th>
-      <th scope="col">Last</th>
+      <th scope="col">Nombre</th>
+      <th scope="col">Raza</th>
+      <th scope="col">Nombre perrito</th>
+      <th scope="col">Email</th>
       <th scope="col">Adopcion</th>
     </tr>
   </thead>
   <tbody>
-    <tr>
-      <th scope="row">1</th>
-      <td>Mark</td>
-      <td>Otto</td>
-      <td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-            Adoptar
-          </button></td>
+    <?php foreach ($adopciones as $adop): ?>
+      <tr>
+      <th scope="row"><?= $adop['nombre']?></th>
+      <td><?= $adop['raza']?></td>
+      <td><?= $adop['nPerrito']?></td>
+      <td><?= $adop['email']?></td>
+      <td><div class="btn-group" role="group">
+    <button id="btnGroupDrop1" type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+      Dropdown
+    </button>
+    <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+      <a class="dropdown-item" data-info='<?= json_encode($adop)?>' href="#" data-toggle="modal" data-target="#exampleModal" onclick="edit(this)">Editar</a>
+      <a class="dropdown-item" href="#" onclick="remove(1)">Eliminar</a>
+    </div>
+  </div></td>
     </tr>
-    <tr>
-      <th scope="row">2</th>
-      <td>Jacob</td>
-      <td>Thornton</td>
-      <td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-            Adoptar
-          </button></td>
-    </tr>
-    <tr>
-      <th scope="row">3</th>
-      <td>Larry</td>
-      <td>the Bird</td>
-      <td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-            Adoptar
-          </button></td>
-    </tr>
+    <?php endforeach ?>
   </tbody>
 </table>
-    
-    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-            Añadir
-          </button>
   </div>
 </div>
   </div>
@@ -282,7 +301,7 @@
   </div>
   </div>
 
-  <section id="footer">
+  <section id="footer" style="margin-top:80px;">
     <div class="container">
       <div class="row text-center text-xs-center text-sm-left text-md-left">
         <div class="col-xs-12 col-sm-4 col-md-4">
@@ -339,33 +358,36 @@
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
-        <form >
+        <form action="userController.php" method="POST" onsubmit=" return validar(this)">
           <div class="container">
             <div class="form-group">
-              <label for="exampleInputEmail1">Nombre completo</label>
-              <input type="text" class="form-control" id="nombre" name="name">
+              <label for="nombre">Nombre completo</label>
+              <input type="text" class="form-control" name="nombre" id="nombre"">
             </div>
             <div class="form-group">
-              <label for="exampleFormControlSelect1">Raza</label>
-              <input type="text" class="form-control" id="apellido" name="last">
+              <label for="raza">Nombre del perrito</label>
+              <input type="text" class="form-control" name="nPerrito" id="nPerrito"">
             </div>
             <div class="form-group">
-              <label for="exampleInputEmail1">Email</label>
-              <input type="text" class="form-control" id="pass" name="email">
+              <label for="raza">Raza</label>
+              <input type="text" class="form-control" name="raza" id="raza"">
             </div>
             <div class="form-group">
-              <label for="exampleInputPassword1">Confirma tu email</label>
-              <input type="email" class="form-control" id="pass2">
+              <label for="email">Email</label>
+              <input type="email" class="form-control" name="email" id="email">
             </div>
-             <div class="form-group">
-              <label for="exampleInputPassword1">Contraseña</label>
-              <input type="password" class="form-control" id="pass2" name="pass">
+            <div class="form-group">
+              <label for="email2">Confirma tu email</label>
+              <input type="email" class="form-control" id="email2">
             </div>
+
           </div>
         
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-            <button type="submit" class="btn btn-primary" onclick="validar(this)">Reservar</button>
+            <button type="submit" class="btn btn-primary">Adoptar</button>
+            <input type="hidden" id="action" name="action" value="store">
+            <input type="hidden" name="id" id="id" value="">
           </div>
         </div>
         </form>
@@ -373,19 +395,39 @@
     </div>
   </div>
 
-	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
-	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
   <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
   <script>
+
+    function add(){
+      $("#exampleModalLabel").text('Registrar adopción')
+    }
+
+    function edit(target){
+      $("#exampleModalLabel").text('Editar')
+      $("action").val('update')
+      var info = $(target).data('info')
+
+      $("#id").val(info.id)
+      $("#nombre").val(info.nombre)
+      $("#nPerrito").val(info.nPerrito)
+      $("#raza").val(info.raza)
+      $("#email").val(info.email)
+      $("#email2").val(info.email)
+
+      console.log(info)
+    }
+
     function validar(target) {
-      if ($('#pass').val() == $('#pass2').val()) {
+      if ($('#email').val() === $('#email2').val()) {
         return true;
       }  else {
         swal("Tus datos no coinciden", "Vuelve a intentar!", "error");
-        $("#pass").addClass('is-invalid');
-        $("#pass2").addClass('is-invalid');
+        $("#email").addClass('is-invalid');
+        $("#email2").addClass('is-invalid');
         return false;
       }
     }
