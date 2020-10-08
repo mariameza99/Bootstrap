@@ -12,7 +12,7 @@
 				$email = strip_tags($_POST['email']);
 				
 				echo "cae en store";
-				//$userController->store($nombre,$nPerrito,$raza,$email);
+				$userController->store($nombre,$nPerrito,$raza,$email);
 			break;
 			case 'update':
 				$nombre = strip_tags($_POST['nombre']);
@@ -21,7 +21,12 @@
 				$email = strip_tags($_POST['email']);
 				$id = strip_tags($_POST['id']);
 				echo "update";
-				//$userController->update($nombre,$nPerrito,$raza,$email,$id);
+				$userController->update($nombre,$nPerrito,$raza,$email,$id);
+			break;
+			case 'remove':
+				$id = strip_tags($_POST['id']);
+				
+				 echo json_encode($userController->remove($id));
 			break;
 		}
 	}
@@ -82,20 +87,20 @@
 			$conn = connect();
 			if (!$conn->connect_error){
 				if($nombre!="" && $nPerrito!="" && $raza!="" && $email!="" && $id!=""){
-					$query = "update adopciones set nombre = ?, nPerrito = ?, raza = ?, email = ? where id = ? ";
+					$query = "update adopciones set nombre=?,nPerrito=?,raza=?,email=? where id=? ";
 					$prepared_query = $conn->prepare($query);
 					$prepared_query->bind_param('ssssi',$nombre,$nPerrito,$raza,$email,$id);
 					
 					if($prepared_query->execute()){
 						$_SESSION['message'] = "Registro Actualizado exitosamente";
 						$_SESSION['status'] = "Success";
-						echo "bien";
+						
 						header("Location: ".$_SERVER['HTTP_REFERER']);
 					}else{
 						$_SESSION['message'] = "El proceso no se pudo completar";
 						$_SESSION['status'] = "error";
 						header("Location: ".$_SERVER['HTTP_REFERER']);
-						echo "mal";
+						
 					}
 					
 				} else {
@@ -107,6 +112,43 @@
 				$_SESSION['message'] = "Problemas con la conexion del servidor";
 				$_SESSION['status'] = "error";
 				header("Location: ".$_SERVER['HTTP_REFERER']);
+			}
+		}
+
+		function remove($id) {
+			$conn = connect();
+			if (!$conn->connect_error){
+				if($id!=""){
+					$query = "delete from adopciones where id = ?";
+					$prepared_query = $conn->prepare($query);
+					$prepared_query->bind_param('i',$id);
+
+					if($prepared_query->execute()) {
+						$response = array(
+						"status"=> "success",
+						"message"=> "Registro eliminado.",
+						);
+						return $response;
+					} else {
+						$response = array(
+						"status"=> "error",
+						"message"=> "Ocurrio un error.",
+					);
+					return $response;
+					}
+				} else {
+					$response = array(
+						"status"=> "error",
+						"message"=> "Verifique su información",
+					);
+					return $response;
+				}
+			} else {
+				$response = array(
+						"status"=> "error",
+						"message"=> "Problemas con la conexion del servidor",
+					);
+					return $response;
 			}
 		}
 		

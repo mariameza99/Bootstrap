@@ -243,11 +243,11 @@
       <td><?= $adop['email']?></td>
       <td><div class="btn-group" role="group">
     <button id="btnGroupDrop1" type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-      Dropdown
+      Opciones
     </button>
     <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
       <a class="dropdown-item" data-info='<?= json_encode($adop)?>' href="#" data-toggle="modal" data-target="#exampleModal" onclick="edit(this)">Editar</a>
-      <a class="dropdown-item" href="#" onclick="remove(1)">Eliminar</a>
+      <a class="dropdown-item" data-info='<?= json_encode($adop)?>' href="#" data-target="#exampleModal" onclick="remove(<?= $adop['id'] ?>)">Eliminar</a>
     </div>
   </div></td>
     </tr>
@@ -385,7 +385,7 @@
         
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-            <button type="submit" class="btn btn-primary">Adoptar</button>
+            <button type="submit" class="btn btn-primary" id="boton">Adoptar</button>
             <input type="hidden" id="action" name="action" value="store">
             <input type="hidden" name="id" id="id" value="">
           </div>
@@ -399,6 +399,7 @@
   <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
   <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  <script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.js"></script>
 
   <script>
 
@@ -408,17 +409,54 @@
 
     function edit(target){
       $("#exampleModalLabel").text('Editar')
-      $("action").val('update')
+      $("#action").val('update') 
       var info = $(target).data('info')
-
-      $("#id").val(info.id)
+      $("#boton").text('Editar')
       $("#nombre").val(info.nombre)
       $("#nPerrito").val(info.nPerrito)
       $("#raza").val(info.raza)
       $("#email").val(info.email)
       $("#email2").val(info.email)
+      $("#id").val(info.id)
 
       console.log(info)
+    }
+
+    function remove(id) {
+      swal({
+        title: "",
+        text: "¿Seguro que quieres borrar los datos?",
+        icon: "warning",
+        buttons: true,
+        dangerMode: true,
+      })
+      .then((willDelete)=> {
+        if (willDelete) {
+          swal("Se esta eliminando su reservación", {
+            icon: "info",
+          });
+
+          $.ajax({
+            url: 'userController.php',
+            type: 'POST',
+            dataType: 'json',
+            data: {id: id, action: 'remove'},
+            success: function(json) {
+              if (json.status == 'success') {
+                swal("Registro borrado.", {
+                  icon: "success",
+                });
+                setTimeout(() => {
+                  location.reload();
+                }, 1000);
+              }
+            },
+            error: function(xhr, status) {
+              console.log(json)
+            }
+          });
+        }
+      });
     }
 
     function validar(target) {
