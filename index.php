@@ -358,7 +358,7 @@
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
-        <form action="userController.php" method="POST" onsubmit=" return validar(this)">
+        <form action="user" method="POST" onsubmit=" return validar(this)">
           <div class="container">
             <div class="form-group">
               <label for="nombre">Nombre completo</label>
@@ -388,6 +388,7 @@
             <button type="submit" class="btn btn-primary" id="boton">Adoptar</button>
             <input type="hidden" id="action" name="action" value="store">
             <input type="hidden" name="id" id="id" value="">
+            <input type="hidden" name="token"  value="<?= $_SESSION['token']?>">
           </div>
         </div>
         </form>
@@ -437,7 +438,7 @@
           });
 
           $.ajax({
-            url: 'userController.php',
+            url: 'user',
             type: 'POST',
             dataType: 'json',
             data: {id: id, action: 'remove'},
